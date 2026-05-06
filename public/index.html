@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran Bimbel Elit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="card">
+        <h2>Pendaftaran Siswa</h2>
+        
+        <div class="input-group">
+            <label>Nama Lengkap</label>
+            <input type="text" id="nama" placeholder="Contoh: Natasya Nur">
+        </div>
+
+        <div class="input-group">
+            <label>Pilih Program</label>
+            <select id="kursus">
+                <option value="Matematika">Matematika Dasar</option>
+                <option value="Bahasa Inggris">English Speaking</option>
+                <option value="Coding">Web Development</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>Nomor WhatsApp</label>
+            <input type="number" id="wa" placeholder="0812xxxx">
+        </div>
+
+        <button onclick="kirimData()">Daftar Sekarang</button>
+    </div>
+
+    <script>
+        async function kirimData() {
+            const nama = document.getElementById('nama').value;
+            const kursus = document.getElementById('kursus').value;
+            const wa = document.getElementById('wa').value;
+
+            if(!nama || !wa) {
+                alert("Mohon isi semua data ya!");
+                return;
+            }
+
+            try {
+                const respon = await fetch('/daftar', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nama, kursus, wa })
+                });
+
+                const hasil = await respon.json();
+                alert("Selamat! " + hasil.message);
+                
+                // Reset form
+                document.getElementById('nama').value = "";
+                document.getElementById('wa').value = "";
+            } catch (err) {
+                alert("Waduh, server sedang bermasalah.");
+            }
+        }
+    </script>
+</body>
+</html>
