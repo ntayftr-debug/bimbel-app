@@ -10,9 +10,9 @@ app.use(express.static('public'));
 
 // Koneksi ke MySQL
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
+    host: 'pendaftaran-les.freehosting.dev',
+    user: 'if0_42153550',
+    password: 'Hst77Sc0m7MwzUH',
     database: 'db_bimbel'
 });
 
